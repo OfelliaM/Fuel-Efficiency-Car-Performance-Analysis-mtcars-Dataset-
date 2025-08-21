@@ -1,0 +1,93 @@
+---
+title: "Car Efficiency Insights (mtcars)"
+author: "Ofellia Marvella Amin"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,  dev = "png")
+```
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+data <- mtcars
+```
+#### Q1. Comparison of fuel consumption (mpg) across transmission gears (3, 4, 5)
+```{r}
+box_plot <- ggplot(data, aes(x = factor(gear), y = mpg, fill = factor(gear))) +  
+  geom_boxplot() +  
+  scale_fill_manual(
+    values = c("3" = "#FF6F61", "4" = "#4C9F70", "5" = "#3C6EAA"),
+    labels = c("3 Gears", "4 Gears", "5 Gears"),
+    name = "Transmission Gears"
+  ) +
+  labs(
+    title = "Comparison of Fuel Consumption by Transmission Gears",
+    x = "Transmission Gears",
+    y = "Fuel Consumption (mpg)"
+  ) +
+  theme_minimal()
+ggplotly(box_plot)
+ggsave("preview1.png", plot = box_plot, dpi = 300, bg = "white")
+```
+Interpretation:  
+- Cars with 4 gears show the highest median mpg, making them the most fuel-efficient choice for product development.  
+- Cars with 5 gears have more diverse fuel consumption (larger IQR), indicating higher variability.  
+- Cars with 3 gears are more consistent but have lower mpg overall (less efficient).  
+  
+Recommendation:  
+Focus on developing 4-gear transmission models for efficiency, while also monitoring variability across car designs.  
+  
+
+#### Q2. Fuel consumption of sport (vs=0) vs non-sport (vs=1) cars
+```{r}
+box_plot <- ggplot(data, aes(x = factor(vs), y = mpg)) +  
+  geom_boxplot(aes(fill = factor(vs))) +  
+  scale_x_discrete(labels = c("0" = "V-shaped Engine", "1" = "Straight Engine")) +  
+  labs(title = "Comparison of Fuel Consumption by Engine Type",  
+       x = "Engine Type",  
+       y = "Fuel Consumption (mpg)") +  
+  scale_fill_manual(values = c("0" = "#FF6F61", "1" = "#4C9F70"), 
+                    labels = c("V-shaped Engine", "Straight Engine"),
+                    name = "Engine Type")
+ggplotly(box_plot)
+ggsave("preview2.png", plot = box_plot, dpi = 300, bg = "white")
+```
+Interpretation:  
+- Non-sport cars (vs=1) have higher median mpg, making them more fuel-efficient compared to sport cars (vs=0).  
+- Non-sport cars show a wider IQR, meaning fuel efficiency is more diverse across models.  
+- Sport cars are more consistent but consistently less fuel-efficient.  
+
+Recommendation:  
+For cost-efficient production, emphasize non-sport (straight-engine) models, as they offer better fuel economy.  
+
+
+#### Q3. Relationship between car weight and horsepower
+```{r}
+scatter_plot <- ggplot(mtcars, aes(x = wt, y = hp)) +
+  geom_point(aes(color = factor(vs))) +
+  scale_color_manual(values = c("0" = "#FF6F61", "1" = "#4C9F70"),
+                     labels = c("V-shaped Engine", "Straight Engine"),
+                     name = "Engine Type") +
+  labs(
+    title = "Correlation between Car Weight and Horsepower",
+    x = "Car Weight (1000 lbs)",
+    y = "Horsepower (hp)"
+  ) +
+  theme_minimal()
+ggplotly(scatter_plot)
+ggsave("preview3.png", plot = scatter_plot, dpi = 300, bg = "white")
+```
+Interpretation:  
+- A positive correlation exists: heavier cars tend to have higher horsepower.  
+  
+Unique cases:  
+- A medium-weight sport car with exceptionally high horsepower (~335 hp). Likely a performance/muscle car.  
+- Very light cars with low horsepower → fuel-efficient economy cars.  
+- Extremely heavy cars with only moderate horsepower → inefficient designs.  
+- A possible outlier: very light non-sport car with relatively high horsepower → potentially unstable or unsafe.    
+  
+Recommendation:  
+Engineering teams should balance weight and horsepower carefully. Avoid overly heavy cars with low horsepower and very light cars with high horsepower, as both present inefficiency or safety risks.
