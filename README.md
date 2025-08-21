@@ -33,7 +33,6 @@ As a **Data Analyst**, I was tasked with exploring fuel efficiency and performan
 - **R programming** (`ggplot2`, `plotly`)  
 - **Boxplots** for distribution & median analysis  
 - **Scatterplots** for correlation analysis  
-- **Interactive visualizations** for stakeholder-friendly reporting  
 
 ---
 
@@ -45,6 +44,6 @@ As a **Data Analyst**, I was tasked with exploring fuel efficiency and performan
 ---
 
 ## 📷 Example Visualizations
-<img src="images/gear_vs_mpg.png" alt="MPG by Gear" width="400"/>  
-<img src="images/sport_vs_nonsport.png" alt="MPG by Engine Type" width="400"/>  
-<img src="images/weight_vs_hp.png" alt="Weight vs Horsepower" width="400"/>  
+<img src="preview1.png" alt="MPG by Gear" width="400"/>  
+<img src="preview2.png" alt="MPG by Engine Type" width="400"/>  
+<img src="preview3.png" alt="Weight vs Horsepower" width="400"/>  
