@@ -1,0 +1,69 @@
+---
+title: "Car Efficiency Insights (mtcars)"
+author: "Ofellia Marvella Amin"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,  dev = "png")
+```
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+data <- mtcars
+```
+#### Q1. Comparison of fuel consumption (mpg) across transmission gears (3, 4, 5)
+```{r}
+box_plot <- ggplot(data, aes(x = gear, y = mpg, fill = gear, group = gear)) +  
+  geom_boxplot() +  
+  labs(title = "Perbandingan konsumsi BBM antar mobil",  
+       x = "gigi transmisi", y = "konsumsi BBM ")
+ggplotly(box_plot)
+```
+Interpretation:  
+- Cars with 4 gears show the highest median mpg, making them the most fuel-efficient choice for product development.  
+- Cars with 5 gears have more diverse fuel consumption (larger IQR), indicating higher variability.  
+- Cars with 3 gears are more consistent but have lower mpg overall (less efficient).  
+  
+Recommendation:  
+Focus on developing 4-gear transmission models for efficiency, while also monitoring variability across car designs.  
+  
+
+#### Q2. Fuel consumption of sport (vs=0) vs non-sport (vs=1) cars
+```{r}
+box_plot <- ggplot(data, aes(x = vs, y = mpg)) +  
+  geom_boxplot(aes(fill = factor(vs))) +  
+  labs(title = "Perbandingan konsumsi BBM antar mobil",  
+       x = "jenis mobil", y = "konsumsi BBM ")
+ggplotly(box_plot)
+```
+Interpretation:  
+- Non-sport cars (vs=1) have higher median mpg, making them more fuel-efficient compared to sport cars (vs=0).  
+- Non-sport cars show a wider IQR, meaning fuel efficiency is more diverse across models.  
+- Sport cars are more consistent but consistently less fuel-efficient.  
+
+Recommendation:  
+For cost-efficient production, emphasize non-sport (straight-engine) models, as they offer better fuel economy.  
+
+
+#### Q3. Relationship between car weight and horsepower
+```{r}
+scatter_plot <- ggplot(mtcars, aes(x = wt, y = hp)) +
+  geom_point(aes(color = factor(vs))) +
+  labs(title = "Korelasi antar berat mobil dan daya mesin", x = "Berat mobil", y = "Daya mesin")
+
+ggplotly(scatter_plot)
+```
+Interpretation:  
+- A positive correlation exists: heavier cars tend to have higher horsepower.  
+  
+Unique cases:  
+- A medium-weight sport car with exceptionally high horsepower (~335 hp). Likely a performance/muscle car.  
+- Very light cars with low horsepower → fuel-efficient economy cars.  
+- Extremely heavy cars with only moderate horsepower → inefficient designs.  
+- A possible outlier: very light non-sport car with relatively high horsepower → potentially unstable or unsafe.    
+  
+Recommendation:  
+Engineering teams should balance weight and horsepower carefully. Avoid overly heavy cars with low horsepower and very light cars with high horsepower, as both present inefficiency or safety risks.
